@@ -1,0 +1,18 @@
+{
+    "test": {
+        "username" : "username",
+        "password" : "password",
+        "database" : "class_07",
+         "host" : "127.0.0.1",
+         "dialect":"sqlite:memory"
+    },
+    "production" : {
+        "username" : "username",
+        "password" : "password",
+        "database" : "class06db",
+         "host" : "127.0.0.1",
+         "dialect":"postgress"
+    }
+
+    
+}
