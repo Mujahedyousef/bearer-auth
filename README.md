@@ -3,3 +3,8 @@ auth-server is able to allow a user to create an account as well as to handle Ba
 
 ## XML
 ![xml](/Auth/image/XML.jpg)
+|Name|Link|
+|----|----|
+|Actions|[Actions](https://github.com/Mujahedyousef/bearer-auth/actions)|
+|PR|[PR](https://github.com/Mujahedyousef/bearer-auth/pull/1)|
+|Heroku|[Heroku]()|
