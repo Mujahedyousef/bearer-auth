@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 const user = require('./user.model')
 require('dotenv').config()
 
-const POSTGRES_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.POSTGRES_URL; // npm i sqlite3
+const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL; // npm i sqlite3
 
 let sequelizeOptions = process.env.NODE_ENV === 'production' ? {
     dialectOptions: {
@@ -14,7 +14,7 @@ let sequelizeOptions = process.env.NODE_ENV === 'production' ? {
     }
 } : {};
 
-const sequelize = new Sequelize(POSTGRES_URL, sequelizeOptions)
+const sequelize = new Sequelize(DATABASE_URL, sequelizeOptions)
 const UserModel = user(sequelize, DataTypes)
 
 module.exports = {
