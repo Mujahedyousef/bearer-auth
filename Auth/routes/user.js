@@ -14,7 +14,7 @@ router.get('/secret', bearerAuth, userHandler)
 async function signUpFun(req, res) {
     let userObject = req.body;
     try {
-        let hashedPassword = await bcrypt.hash(req.body.password,5);
+        let hashedPassword = await bcrypt.hash(req.body.password, 5);
         const newUser = await user.create({
             username: userObject.username,
             password: hashedPassword
@@ -31,6 +31,6 @@ function signInFun(req, res) {
 }
 
 function userHandler(req, res) {
-    res.status(200).json(  req.User)
+    res.status(200).json(req.User)
 }
 module.exports = router;

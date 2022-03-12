@@ -3,8 +3,7 @@
 process.env.SECRET = "toes";
 
 const middleware = require('../Auth/middlewares/bearerAuth');
-const { DB, user } = require('../Auth/models/index');
-
+const { DB } = require('../Auth/models/index');
 const jwt = require('jsonwebtoken')
 
 
@@ -13,14 +12,13 @@ let userInfo = {
 };
 
 // Pre-load our database with fake users
-beforeAll(async (done) => {
+beforeAll(async () => {
   await DB.sync();
-  await user.create(userInfo.admin);
-  done();
+
 });
-afterAll(async (done) => {
+afterAll(async () => {
   await DB.drop();
-  done();
+
 });
 
 describe('Auth Middleware', () => {
@@ -60,7 +58,7 @@ describe('Auth Middleware', () => {
 
       return middleware(req, res, next)
         .then(() => {
-          expect(next).toHaveBeenCalledWith();
+          expect(next).not.toHaveBeenCalledWith();
         });
 
     });
