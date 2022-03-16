@@ -2,23 +2,26 @@
 
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.SECRET;
+const SECRET = process.env.SECRET || hello;
 const { user } = require('../models/index');
-// const bcrypt = require('bcrypt')
+//  const bcrypt = require('bcrypt')
+
 
 const bearerAuth = async (req, res, next) => {
-    let bearerAuthText = req.headers.authorization;
-    if (bearerAuthText) {
+    if (req.headers.authorization) {
         try {
-            let bearerHeadersParts = bearerAuthText.split(' ');
-            let token = bearerHeadersParts.pop()
+            let bearerHeadersParts = req.headers.authorization.split(' ');
+            let token = bearerHeadersParts.pop();
+
             if (token) {
-                let parsedToken = jwt.verify(token, SECRET);
-                const User = await user.findOne({ where: { username: parsedToken.username } });
+                const userToken = jwt.verify(token, SECRET);
+
+                const User = await user.findOne({ where: { username: userToken.username } });
+                console.log(userToken);
                 if (User) {
-                    req.token = parsedToken;
+                    req.token = userToken;
                     req.User = User;
-                    next()
+                    next();
                 } else {
                     res.status(403).send('invalid user')
                 }
@@ -32,6 +35,10 @@ const bearerAuth = async (req, res, next) => {
 }
 
 module.exports = bearerAuth;
+
+
+
+
 
 
 
