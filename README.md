@@ -6,5 +6,5 @@ auth-server is able to allow a user to create an account as well as to handle Ba
 |Name|Link|
 |----|----|
 |Actions|[Actions](https://github.com/Mujahedyousef/bearer-auth/actions)|
-|PR|[PR](https://github.com/Mujahedyousef/bearer-auth/pull/2)|
+|PR|[PR](https://github.com/Mujahedyousef/bearer-auth/pull/6)|
 |Heroku|[Heroku](https://mujahed-bearer-auth.herokuapp.com/)|
