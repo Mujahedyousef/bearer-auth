@@ -27,7 +27,7 @@ async function signUpFun(req, res) {
 
 
 function signInFun(req, res) {
-    res.status(200).json(req.userInf)
+    res.status(200).json(req.User)
 }
 
 function userHandler(req, res) {

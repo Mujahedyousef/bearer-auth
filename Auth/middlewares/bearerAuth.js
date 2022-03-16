@@ -7,34 +7,31 @@ const SECRET = process.env.SECRET
 
 
 const bearerAuth = async (req, res, next) => {
-    let bearerAuthText = req.headers.authorization;
-    // console.log(11,bearerAuthText);
-    if (req.headers.authorization) {
-        try {
-            let bearerHeadersParts = bearerAuthText.split(' ');
-            let token = bearerHeadersParts.pop()
-            // console.log(22,token);
-            if (token) {
-                const parsedToken = jwt.verify(token, SECRET)
-                
-                const userInf = await user.findOne({ where: { username: parsedToken.username } })
-                // console.log(33,userInf);
-                if (userInf) {
-                    req.token = parsedToken;
-                    req.userInf = userInf;
-                    next();
-                } else {
-                    res.status(403).send('invalid user')
-                }
+    let basicAuthText = req.headers.authorization;
+    try {
+        if (basicAuthText) {
+            let basicHeardersParts = basicAuthText.split(' ');
+            let encoded = basicHeardersParts.pop();
+            let decode = base64.decode(encoded);
+            let [username, password] = decode.split(":")
+            const User = await user.findOne({ where: { username: username } });
+            const valid = await bcrypt.compare(password, User.password);
+            if (valid) {
+                req.User = User
+                let newToken = jwt.sign({ username: User.username }, SECRET, { expiresIn: 900000 })
+                User.token = newToken;
+                res.status(200).json(User)
+                next()
+            } else {
+                res.status(403).send('invalid sign in Password')
             }
-        } catch (error) {
-            res.status(403).send('invalid Token');
         }
-    } else {
-        res.status(403).send('Empty Token')
+
+    } catch (error) {
+        console.error(`${error}`)
+        res.status(403).send('invalid sign in Username')
     }
 }
-
 module.exports = bearerAuth;
 
 
