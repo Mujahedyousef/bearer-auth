@@ -3,7 +3,7 @@
 require('dotenv').config()
 const base64 = require('base-64');
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.SECRET || "mujahedyousef"
+const SECRET = process.env.SECRET || 
 const { user } = require('../models/index');
 const bcrypt = require('bcrypt')
 
